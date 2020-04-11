@@ -57,9 +57,9 @@ function deleteCheck(e) {
     //Animation
     todo.classList.add("fall");
     if (todo.classList.contains("completed")) {
-      removeCompletedLocalStorage(todo.innerText);
+      removeCompletedLocalStorage(todo);
     } else {
-      removeLocalTodos(todo.innerText);
+      removeLocalTodos(todo);
     }
     todo.addEventListener("transitionend", function () {
       todo.remove();
@@ -72,9 +72,9 @@ function deleteCheck(e) {
     const todo = item.parentElement;
     todo.classList.toggle("completed");
     if (todo.classList.contains("completed")) {
-      markCompletedLocalStorage(todo.innerText);
+      markCompletedLocalStorage(todo);
     } else {
-      toggleCompletedLocalTodos(todo.innerText);
+      toggleCompletedLocalTodos(todo);
     }
   }
 }
@@ -161,8 +161,8 @@ function removeLocalTodos(todo) {
     todos = JSON.parse(localStorage.getItem("todos"));
   }
 
-  const todoIndex = Array.from(todoList.childNodes).indexOf(todo);
-  todos.splice(todoIndex, 1);
+  const todoIndex = todo.children[0].innerText;
+  todos.splice(todos.indexOf(todoIndex), 1);
   localStorage.setItem("todos", JSON.stringify(todos));
 }
 
@@ -176,11 +176,11 @@ function markCompletedLocalStorage(todo) {
 
   todos = JSON.parse(localStorage.getItem("todos"));
 
-  completedTodos.push(todo);
+  completedTodos.push(todo.children[0].innerText);
   localStorage.setItem("completedTodos", JSON.stringify(completedTodos));
 
-  const todoIndex = Array.from(todoList.childNodes).indexOf(todo);
-  todos.splice(todoIndex, 1);
+  const todoIndex = todo.children[0].innerText;
+  todos.splice(todos.indexOf(todoIndex), 1);
   localStorage.setItem("todos", JSON.stringify(todos));
 }
 
@@ -230,18 +230,23 @@ function toggleCompletedLocalTodos(todo) {
   }
   completedTodos = JSON.parse(localStorage.getItem("completedTodos"));
 
-  todos.push(todo);
-  const todoIndex = Array.from(todoList.childNodes).indexOf(todo);
-  completedTodos.splice(todoIndex, 1);
+  todos.push(todo.children[0].innerText);
+  const todoIndex = todo.children[0].innerText;
+  completedTodos.splice(completedTodos.indexOf(todoIndex), 1);
   localStorage.setItem("completedTodos", JSON.stringify(completedTodos));
   localStorage.setItem("todos", JSON.stringify(todos));
 }
 
-function removeCompletedLocalTodos(todo) {
-  let completedTodos = JSON.parse(localStorage.getItem("completedTodos"));
+function removeCompletedLocalStorage(todo) {
+  let completedTodos;
+  if (localStorage.getItem("completedTodos") === null) {
+    completedTodos = [];
+  } else {
+    completedTodos = JSON.parse(localStorage.getItem("completedTodos"));
+  }
 
-  const todoIndex = Array.from(todoList.childNodes).indexOf(todo);
-  completedTodos.splice(todoIndex, 1);
+  const todoIndex = todo.children[0].innerText;
+  completedTodos.splice(completedTodos.indexOf(todoIndex), 1);
   localStorage.setItem("completedTodos", JSON.stringify(completedTodos));
 }
 
