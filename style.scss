@@ -181,3 +181,86 @@ select {
     transition: all 0.3s ease;
   }
 }
+
+@media all and (max-width: 600px) {
+  header {
+    h1 {
+      font-size: 4rem;
+    }
+  }
+
+  main {
+    form {
+      flex-wrap: wrap;
+      width: 100%;
+      flex-direction: column;
+
+      input,
+      button {
+        padding: 0.5rem;
+        font-size: 0.8rem;
+        border-radius: 10px;
+        margin-top: 1rem;
+      }
+
+      input {
+        width: 90vw;
+      }
+      button {
+        i {
+          font-size: 0.8rem;
+          padding: 0 0.5rem;
+        }
+
+        &::before {
+          content: "Add Task ";
+          position: relative;
+          font-weight: 550;
+        }
+      }
+    }
+  }
+
+  .select {
+    margin: 1rem;
+
+    select {
+      color: #6e3de2;
+      background: #eae1ff;
+      width: 6rem;
+      font-size: 0.8rem;
+      padding: 0.4rem;
+    }
+
+    &::after {
+      padding: 0.4rem;
+      font-size: 0.8rem;
+    }
+  }
+
+  .todo-container {
+    .todo-list {
+      width: 90vw;
+
+      .todo {
+        margin: 0.3rem;
+
+        font-size: 0.8rem;
+
+        li {
+          flex: 1;
+        }
+      }
+    }
+  }
+
+  .delete-btn,
+  .complete-btn {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .todo-item {
+    padding: 0 0.5rem;
+  }
+}
